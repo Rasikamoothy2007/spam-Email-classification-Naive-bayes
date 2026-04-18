@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spam Email Classifier - Mini Project</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #fff;
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(0,0,0,0.3);
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Container */
+.container {
+    width: 60%;
+    margin: 60px auto;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #ddd;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    height: 130px;
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 15px;
+}
+
+/* Button */
+button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Result Box */
+.result {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Status Colors */
+.spam {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4b5c;
+}
+
+.ham {
+    background: rgba(0, 255, 150, 0.2);
+    color: #00ffae;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+🚀 Spam Email Classification using Naive Bayes
+</div>
+
+<div class="container">
+    <h1>📧 Email Classifier</h1>
+    <p>Mini Project | Feature Optimization + Enron Dataset Concept</p>
+
+    <textarea id="emailText" placeholder="Paste your email content here..."></textarea>
+
+    <button onclick="classify()">Analyze Email</button>
+
+    <div id="output" class="result"></div>
+</div>
+
+<div class="footer">
+Made for Mini Project • AI & ML • Naive Bayes
+</div>
+
+<script>
+function classify() {
+
+    let text = document.getElementById("emailText").value.toLowerCase();
+
+    let spamKeywords = [
+        "free", "win", "winner", "money", "cash", "offer",
+        "urgent", "lottery", "prize", "click", "buy now",
+        "limited", "credit", "cheap", "earn"
+    ];
+
+    let score = 0;
+
+    spamKeywords.forEach(word => {
+        if (text.includes(word)) {
+            score++;
+        }
+    });
+
+    let output = document.getElementById("output");
+
+    if (text.trim() === "") {
+        output.innerHTML = "⚠️ Please enter email content!";
+        output.className = "result";
+        return;
+    }
+
+    if (score >= 2) {
+        output.innerHTML = "🚫 Spam Email Detected!";
+        output.className = "result spam";
+    } else {
+        output.innerHTML = "✅ Legitimate Email (Ham)";
+        output.className = "result ham";
+    }
+}
+</script>
+
+</body>
+</html>
